@@ -1702,8 +1702,10 @@ unsigned long mmap_region(struct file *file, unsigned long addr,
 		nr_pages = count_vma_pages_range(mm, addr, addr + len);
 
 		if (!may_expand_vm(mm, vm_flags,
-					(len >> PAGE_SHIFT) - nr_pages))
-			return -ENOMEM;
+					(len >> PAGE_SHIFT) - nr_pages)) {
+			printk("xiaobai ENOMEM MAP_FIXED %ld %ld", len, nr_pages);
+			// return -ENOMEM;
+		}
 	}
 
 	/* Clear old maps */
