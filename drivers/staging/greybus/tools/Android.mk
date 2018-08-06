@@ -1,5 +1,7 @@
 LOCAL_PATH:= $(call my-dir)
 
+ifneq ($(filter polaris,$(TARGET_DEVICE)),)
+
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES:= loopback_test.c
@@ -8,3 +10,4 @@ LOCAL_MODULE := gb_loopback_test
 
 include $(BUILD_EXECUTABLE)
 
+endif
