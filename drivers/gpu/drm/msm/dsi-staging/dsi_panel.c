@@ -24,6 +24,9 @@
 #include "dsi_panel.h"
 #include "dsi_display.h"
 #include "dsi_ctrl_hw.h"
+#ifdef CONFIG_EXPOSURE_ADJUSTMENT
+#include "exposure_adjustment.h"
+#endif
 
 #include <linux/fs.h>
 #include <asm/uaccess.h>
@@ -976,6 +979,10 @@ int dsi_panel_set_backlight(struct dsi_panel *panel, u32 bl_lvl)
 
 	/* add for backlight consistency */
 	dsi_panel_backlight_consistency(panel, &bl_lvl);
+
+#ifdef CONFIG_EXPOSURE_ADJUSTMENT
+	bl_lvl = ea_panel_calc_backlight(bl_lvl);
+#endif
 
 	pr_debug("backlight type:%d lvl:%d\n", bl->type, bl_lvl);
 	switch (bl->type) {
